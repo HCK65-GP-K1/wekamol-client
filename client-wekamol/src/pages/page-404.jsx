@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
 export default function FourOFourPage() {
+  //404 page, kalo user nyasar
   let navigate = useNavigate("");
 
   const backgroundImage = {
