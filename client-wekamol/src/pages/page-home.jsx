@@ -26,13 +26,13 @@ export default function HomePage() {
         </div>
 
         <div className="flex gap-6 mt-6">
-          <Link to='/game'>
+          <Link to='/game/1'>
             <button className="btn btn-outline btn-success">Join Room 1</button>
           </Link>
-          <Link to='/game'>
+          <Link to='/game/2'>
             <button className="btn btn-outline btn-success">Join Room 2</button>
           </Link>
-          <Link to='/game'>
+          <Link to='/game/3'>
             <button className="btn btn-outline btn-success">Join Room 3</button>
           </Link>
         </div>

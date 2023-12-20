@@ -47,7 +47,7 @@ const router = createBrowserRouter([
   },
 
   {
-    path: "/game",
+    path: "/game/:room",
     element: <RootLayout />,
     loader: () => {
       const isLoggedIn = localStorage.getItem("access_token");
