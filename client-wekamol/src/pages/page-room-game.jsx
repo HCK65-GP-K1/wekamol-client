@@ -82,7 +82,7 @@ export default function GamePage() {
         // console.log(response, "????????????????????");
         await Swal.fire({
           title: "Game Over!",
-          text: `congrats, your score is ${score}`,
+          text: `Congrats, your score is ${score}`,
           icon: "success",
         });
       }
@@ -152,23 +152,26 @@ export default function GamePage() {
         <LoadingAnimation />
       ) : (
         <>
-          <section className="flex justify-center flex-col border h-screen p-4 place-items-center">
-            <h1 id="room-game-title" className="absolute top-4">
-              BASEGAME ROOM {room}
+          <section className="flex justify-center flex-col border h-screen w-full p-4 place-items-center bg-black">
+            <h1 id="room-game-title" className="text-4xl text-slate-200 mb-4">
+              Room {room}
             </h1>
-            <h2 className="absolute top-10">
-              Score : {score}
-              <span className="countdown">
-                Time Remaining :
-                <span style={{ "--value": remainingTime }}>
+            <div className="flex gap-6 text-center items-center justify-center mb-4">
+
+            <h2 className="mb-4 text-4xl text-slate-200">
+              Score : {score} |
+            </h2>
+              <h2 className="-ml-4 mb-4 text-4xl text-slate-200">
+                Time Remaining : 
+                <span className="ml-3 mb-4 text-4xl text-slate-200" style={{ "--value": remainingTime }}>
                   {remainingTime}
                 </span>
-              </span>
-            </h2>
+              </h2>
+            </div>
 
             <div
               id="board"
-              className="border w-[420px] h-[420px] grid grid-cols-3 grid-rows-3"
+              className="border w-2/3 h-2/3 grid grid-cols-3 grid-rows-3"
             >
               {moles.map((isMole, idx) => {
                 return (
@@ -190,9 +193,9 @@ export default function GamePage() {
             {gameActive ? (
               ""
             ) : (
-              <div id="nav">
-                <button className="btn btn-primary" onClick={handleExitGame}>
-                  EXIT GAME
+              <div id="mt-6">
+                <button className="btn btn-outline btn-success mt-8" onClick={handleExitGame}>
+                  Exit Room
                 </button>
               </div>
             )}
