@@ -1,5 +1,5 @@
 import axios from "axios";
 
 export default axios.create({
-  baseURL: "http://localhost:5555/", //NANTI GANTI GAN
+  baseURL: "https://koso-api.rprakoso.my.id", //NANTI GANTI GAN
 });
