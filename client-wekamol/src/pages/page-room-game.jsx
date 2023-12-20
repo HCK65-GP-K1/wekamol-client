@@ -171,7 +171,7 @@ export default function GamePage() {
 
             <div
               id="board"
-              className="border w-2/3 h-2/3 grid grid-cols-3 grid-rows-3"
+              className="border w-2/3 h-2/3 lg:w-[640px] lg:h-[640px] grid grid-cols-3 grid-rows-3"
             >
               {moles.map((isMole, idx) => {
                 return (
