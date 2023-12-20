@@ -1,9 +1,10 @@
 import { useState } from "react";
 import Axios from "../helpers/axios";
 import { errorHandler } from "../helpers/errorHandler";
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+import { Link, useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 import { useEffect } from "react";
+import { socket } from "../utils/socket";
 
 export default function LoginPage() {
   let navigate = useNavigate("");
@@ -29,9 +30,17 @@ export default function LoginPage() {
       const { data } = await Axios.post("/users/login", form);
       localStorage.setItem("access_token", data.access_token);
 
-    //   toast.success(`Login succeeded!`, { //NOT WORKING SOMEHOW
-    //     theme: "dark",
-    //   });
+      toast.success('Login success!', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        });
+
       navigate("/");
     } catch (error) {
       // console.error(error);
@@ -43,108 +52,88 @@ export default function LoginPage() {
     navigate("/register");
   }
 
-//   async function handleCredentialResponse(response) { //GOOGLE LOGIN LOGIC
-//     // console.log("Encoded JWT ID token: " + response.credential);
-//     try {
-//       const { data } = await Axios.post(
-//         "/login/google",
-//         {},
-//         {
-//           headers: {
-//             ["google-token"]: response.credential,
-//           },
-//         }
-//       );
+  //   async function handleCredentialResponse(response) { //GOOGLE LOGIN LOGIC
+  //     // console.log("Encoded JWT ID token: " + response.credential);
+  //     try {
+  //       const { data } = await Axios.post(
+  //         "/login/google",
+  //         {},
+  //         {
+  //           headers: {
+  //             ["google-token"]: response.credential,
+  //           },
+  //         }
+  //       );
 
-//       localStorage.setItem("access_token", data.access_token);
-//       toast.success(`Login succeeded with google`, {
-//         theme: "dark",
-//       });
-//       navigate("/");
-//     } catch (error) {
-//       errorHandler(error);
-//     }
-//   }
+  //       localStorage.setItem("access_token", data.access_token);
+  //       toast.success(`Login succeeded with google`, {
+  //         theme: "dark",
+  //       });
+  //       navigate("/");
+  //     } catch (error) {
+  //       errorHandler(error);
+  //     }
+  //   }
 
-//   useEffect(() => {
-//     google.accounts.id.initialize({
-//       client_id:
-//         "954459036268-ek1eaqqd57mk1at9r09o63466foer3sb.apps.googleusercontent.com",
-//       callback: handleCredentialResponse,
-//     });
-//     google.accounts.id.renderButton(
-//       document.getElementById("buttonDiv"),
-//       { theme: "outline", size: "large" } // customization attributes
-//     );
-//   }, []);
+  //   useEffect(() => {
+  //     google.accounts.id.initialize({
+  //       client_id:
+  //         "954459036268-ek1eaqqd57mk1at9r09o63466foer3sb.apps.googleusercontent.com",
+  //       callback: handleCredentialResponse,
+  //     });
+  //     google.accounts.id.renderButton(
+  //       document.getElementById("buttonDiv"),
+  //       { theme: "outline", size: "large" } // customization attributes
+  //     );
+  //   }, []);
 
   return (
     <>
-      <section>
-        <div className="hero min-h-screen bg-base-200">
-          <div className="hero-content flex-col lg:flex-row-reverse">
-            <div className="text-center lg:text-left">
-              <h1 className="text-5xl font-bold">Login now!</h1>
-              <p className="py-6">
-                Welcome to Weebify, the anime aficionado's haven in the digital
-                cosmos! Dive into a realm adorned with over 20,000 captivating
-                anime titles, where every click unveils a gateway to a new
-                adventure. Weebify isn't just a recommendation hub; it's an
-                immersive playground for both the die-hard fans and the curious
-                souls yearning to explore the diverse tapestry of anime
-                landscapes. From timeless classics to the latest sensations,
-                Weebify is your trusty guide through this vibrant universe,
-                ensuring that every visit sparks excitement and leads to your
-                next unforgettable anime journey.
-              </p>
+    <ToastContainer />
+      {/* component */}
+      <div className="w-full min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-black">
+        <div className="w-full sm:max-w-md p-5 mx-auto">
+          <h2 className="mb-12 text-center w-full text-4xl font-extrabold text-slate-200">Log into your account</h2>
+          <form onSubmit={handleLogin}>
+            <div className="mb-4">
+              <label className="block mb-1 text-slate-200" htmlFor="email">
+                Email-Address
+              </label>
+              <input
+                id="email"
+                type="text"
+                name="email"
+                value={form.email}
+                onChange={handleOnChange}
+                className="py-2 px-3 border border-gray-300 focus:border-red-300 focus:outline-none focus:ring focus:ring-red-200 focus:ring-opacity-50 rounded-md shadow-sm disabled:bg-gray-100 mt-1 block w-full"
+              />
             </div>
-            <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-              <form className="card-body" onSubmit={handleLogin}>
-                <div className="form-control">
-                  <label className="label">
-                    <span className="label-text">Email</span>
-                  </label>
-                  <input
-                    type="text"
-                    placeholder="email"
-                    className="input input-bordered"
-                    name="email"
-                    onChange={handleOnChange}
-                  />
-                </div>
-                <div className="form-control">
-                  <label className="label">
-                    <span className="label-text">Password</span>
-                  </label>
-                  <input
-                    type="password"
-                    placeholder="password"
-                    className="input input-bordered"
-                    name="password"
-                    onChange={handleOnChange}
-                  />
-                  <label className="label">
-                    new here?
-                    <span>
-                      <a
-                        onClick={handleNavToRegister}
-                        className="label-text-alt link link-hover"
-                      >
-                        Register Now!
-                      </a>
-                    </span>
-                  </label>
-                </div>
-                <div className="form-control mt-6 flex justify-center items-center">
-                  <button className="btn btn-primary w-full" type="submit">
-                    Login
-                  </button>
-                </div>
-              </form>
+            <div className="mb-4">
+              <label className="block mb-1 text-slate-200" htmlFor="password">
+                Password
+              </label>
+              <input
+                id="password"
+                type="password"
+                name="password"
+                value={form.password}
+                onChange={handleOnChange}
+                className="py-2 px-3 border border-gray-300 focus:border-red-300 focus:outline-none focus:ring focus:ring-red-200 focus:ring-opacity-50 rounded-md shadow-sm disabled:bg-gray-100 mt-1 block w-full"
+              />
             </div>
-          </div>
+
+            <div className="mt-6">
+              <button type="submit" className="btn btn-outline btn-success w-full">Login</button>
+            </div>
+            <div className="mt-6 text-center">
+              <Link to="/register" className="hover:underline text-slate-200">
+                Sign up for an account
+              </Link>
+            </div>
+          </form>
         </div>
-      </section>
+      </div>
     </>
+
   );
 }
