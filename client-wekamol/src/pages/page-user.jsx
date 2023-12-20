@@ -18,7 +18,7 @@ export default function MyPage() {
     dispatch(fetchUserDataRdx());
   }, []);
 
-  console.log(user);
+  // console.log(user);
 
   return (
     <>
