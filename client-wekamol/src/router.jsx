@@ -42,12 +42,12 @@ const router = createBrowserRouter([
   },
 
   {
-    path: "register",
+    path: "/register",
     element: <RegisterPage />,
   },
 
   {
-    path: "/game",
+    path: "/game/:room",
     element: <RootLayout />,
     loader: () => {
       const isLoggedIn = localStorage.getItem("access_token");
