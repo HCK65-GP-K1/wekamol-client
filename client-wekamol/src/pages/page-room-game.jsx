@@ -22,6 +22,7 @@ export default function GamePage() {
   // const isMole = () => {};
   function showMole(idx) {
     if (!gameActive) return;
+    // console.log(gameActive)
 
     setMoles((currMoles) => {
       const newMoles = [...currMoles];
