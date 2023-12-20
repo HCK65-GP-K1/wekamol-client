@@ -1,4 +1,6 @@
 import { useNavigate } from "react-router-dom";
+import { socket } from "../utils/socket";
+
 
 export default function HomePage() {
   let navigate = useNavigate();

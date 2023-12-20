@@ -4,6 +4,8 @@ import { errorHandler } from "../helpers/errorHandler";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useEffect } from "react";
+import { socket } from "../utils/socket";
+
 
 export default function LoginPage() {
   let navigate = useNavigate("");
@@ -42,6 +44,12 @@ export default function LoginPage() {
   function handleNavToRegister(event) {
     navigate("/register");
   }
+
+  useEffect(() => {
+    socket.on('new-connection', (payload) => {
+      console.log(payload);
+    })
+  },[socket])
 
 //   async function handleCredentialResponse(response) { //GOOGLE LOGIN LOGIC
 //     // console.log("Encoded JWT ID token: " + response.credential);
