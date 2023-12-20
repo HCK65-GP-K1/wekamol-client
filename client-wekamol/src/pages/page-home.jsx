@@ -23,7 +23,7 @@ export default function HomePage() {
       }}>
         <div className="flex flex-row items-center justify-center h-screen md-30">
           <button className="btn mr-4" onClick={handleToGame}>PLAY GAME</button>
-          <button className="btn " onClick={handleToProfile}>
+          <button className="btn" onClick={handleToProfile}>
             PROFILE USER
           </button>
           <button className="btn btn-error absolute top-0 right-0 mt-4 mr-4" onClick={handleLogout}>
