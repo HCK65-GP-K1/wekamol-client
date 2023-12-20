@@ -3,8 +3,6 @@ import Axios from "../helpers/axios";
 import { errorHandler } from "../helpers/errorHandler";
 import { Link, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
-import { useEffect } from "react";
-import { socket } from "../utils/socket";
 
 export default function LoginPage() {
   let navigate = useNavigate("");
@@ -47,51 +45,6 @@ export default function LoginPage() {
       errorHandler(error);
     }
   }
-
-  function handleNavToRegister(event) {
-    navigate("/register");
-  }
-
-  useEffect(() => {
-    socket.on('new-connection', (payload) => {
-      console.log(payload);
-    })
-  }, [socket])
-
-  //   async function handleCredentialResponse(response) { //GOOGLE LOGIN LOGIC
-  //     // console.log("Encoded JWT ID token: " + response.credential);
-  //     try {
-  //       const { data } = await Axios.post(
-  //         "/login/google",
-  //         {},
-  //         {
-  //           headers: {
-  //             ["google-token"]: response.credential,
-  //           },
-  //         }
-  //       );
-
-  //       localStorage.setItem("access_token", data.access_token);
-  //       toast.success(`Login succeeded with google`, {
-  //         theme: "dark",
-  //       });
-  //       navigate("/");
-  //     } catch (error) {
-  //       errorHandler(error);
-  //     }
-  //   }
-
-  //   useEffect(() => {
-  //     google.accounts.id.initialize({
-  //       client_id:
-  //         "954459036268-ek1eaqqd57mk1at9r09o63466foer3sb.apps.googleusercontent.com",
-  //       callback: handleCredentialResponse,
-  //     });
-  //     google.accounts.id.renderButton(
-  //       document.getElementById("buttonDiv"),
-  //       { theme: "outline", size: "large" } // customization attributes
-  //     );
-  //   }, []);
 
   return (
     <>
