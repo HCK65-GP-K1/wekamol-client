@@ -12,11 +12,16 @@ export default function HomePage() {
   const handleToProfile = () => {
     navigate("/my");
   };
+  const handleToGame = () => {
+    navigate("/game");
+  };
 
   return (
     <>
       <h1>INI HOMEPAGE, ISINYA FORM UNTUK MASUK SESSION GAME????</h1>
-      <button className="btn btn-primary">PLAY</button>
+      <button className="btn btn-primary" onClick={handleToGame}>
+        PLAY
+      </button>
       <button className="btn btn-primary" onClick={handleToProfile}>
         PROFILE
       </button>
