@@ -5,6 +5,8 @@ import hole from "../assets/hole.jpg";
 import mole from "../assets/mole-popup.png";
 import { errorHandler } from "../helpers/errorHandler";
 import Axios from "../helpers/axios";
+import { socket } from "../utils/socket";
+
 
 export default function GamePage() {
   let params = useParams();
@@ -61,6 +63,7 @@ export default function GamePage() {
             Authorization: `Bearer ${token}`,
           },
         });
+        socket.emit('score', {score})
         // console.log(response, "????????????????????");
         await Swal.fire({
           title: "Game Over!",
@@ -104,6 +107,7 @@ export default function GamePage() {
       clearInterval(timer);
     };
   }, [moles]);
+
 
   const handleExitGame = () => {
     navigate("/");
