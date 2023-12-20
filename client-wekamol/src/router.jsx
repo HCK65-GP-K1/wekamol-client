@@ -47,7 +47,7 @@ const router = createBrowserRouter([
   },
 
   {
-    path: "/game/:room",
+    path: "/game",
     element: <RootLayout />,
     loader: () => {
       const isLoggedIn = localStorage.getItem("access_token");
@@ -66,7 +66,7 @@ const router = createBrowserRouter([
   },
 
   {
-    path: "my/:id",
+    path: "/my",
     element: <RootLayout />,
     loader: () => {
       const isLoggedIn = localStorage.getItem("access_token");

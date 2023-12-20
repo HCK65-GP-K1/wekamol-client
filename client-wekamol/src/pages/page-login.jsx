@@ -8,7 +8,7 @@ import { useEffect } from "react";
 export default function LoginPage() {
   let navigate = useNavigate("");
   const [form, setForm] = useState({
-    inputCreds: "",
+    email: "",
     password: "",
   });
 
@@ -26,7 +26,7 @@ export default function LoginPage() {
   async function handleLogin(event) {
     event.preventDefault();
     try {
-      const { data } = await Axios.post("/login", form);
+      const { data } = await Axios.post("/users/login", form);
       localStorage.setItem("access_token", data.access_token);
 
     //   toast.success(`Login succeeded!`, { //NOT WORKING SOMEHOW
