@@ -152,7 +152,7 @@ export default function GamePage() {
         <LoadingAnimation />
       ) : (
         <>
-          <section className="flex justify-center flex-col border h-screen w-full p-4 place-items-center bg-black">
+          <section className="flex justify-center flex-col h-screen w-screen p-4 place-items-center bg-black">
             <h1 id="room-game-title" className="text-4xl text-slate-200 mb-4">
               Room {room}
             </h1>
@@ -171,7 +171,7 @@ export default function GamePage() {
 
             <div
               id="board"
-              className="border w-2/3 h-2/3 lg:w-[640px] lg:h-[640px] grid grid-cols-3 grid-rows-3"
+              className=" rounded-xl w-2/3 h-2/3 lg:w-[640px] lg:h-[640px] grid grid-cols-3 grid-rows-3"
             >
               {moles.map((isMole, idx) => {
                 return (
