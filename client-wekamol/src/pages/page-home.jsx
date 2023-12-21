@@ -3,15 +3,30 @@ import { socket } from "../utils/socket";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserDataRdx } from "../features/user/asyncActionUser";
+import Axios from "../helpers/axios";
+import { errorHandler } from "../helpers/errorHandler";
+
 
 export default function HomePage() {
   let navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user);
+  const [leaderboard, setLeaderboard] = useState([])
+
+  async function fetchLeaderboard() {
+    try {
+      const { data } = await Axios.get("/leaderboard");
+      // console.log(data);
+      setLeaderboard(data)
+    } catch (error) {
+      errorHandler(error);
+    }
+  }
 
   useEffect(() => {
     dispatch(fetchUserDataRdx());
-  }, []);
+    fetchLeaderboard()
+  }, [leaderboard]);
 
   const handleLogout = () => {
     localStorage.removeItem("access_token");
@@ -48,35 +63,28 @@ export default function HomePage() {
                       >
                         Highest Score
                       </th>
-                      
+
                     </tr>
                   </thead>
                   <tbody>
-                    <tr className="bg-black border-b text-[#006743] border-[#006743] transition duration-300 ease-in-out hover:bg-[#006743] hover:text-black text-md font-medium">
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        1
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        Mark
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        Otto
-                      </td>
-            
-                    </tr>
-                    <tr className="bg-black border-b text-[#006743] border-[#006743] transition duration-300 ease-in-out hover:bg-[#006743] hover:text-black text-md font-medium">
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        2
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        Jacob
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        Thornton
-                      </td>
-                      
-                    </tr>
-                    
+                    {leaderboard.map((el, idx) => {
+                      return (
+                        <> 
+                          <tr key={idx} className="bg-black border-b text-[#006743] border-[#006743] transition duration-300 ease-in-out hover:bg-[#006743] hover:text-black text-md font-medium">
+                            <td className="px-6 py-4 whitespace-nowrap">
+                              {idx + 1}
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap">
+                              {el.username}
+                            </td>
+                            <td className="px-6 py-4 whitespace-nowrap">
+                              {el.highestScore}
+                            </td>
+                          </tr>
+
+                        </>
+                      )
+                    })}
                   </tbody>
                 </table>
               </div>
